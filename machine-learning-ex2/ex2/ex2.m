@@ -95,8 +95,7 @@ options = optimset('GradObj', 'on', 'MaxIter', 400);
 
 %  Run fminunc to obtain the optimal theta
 %  This function will return theta and the cost 
-[theta, cost] = ...
-	fminunc(@(t)(costFunction(t, X, y)), initial_theta, options);
+[theta, cost] = fminunc(@(t)(costFunction(t, X, y)), initial_theta, options);
 
 % Print theta to screen
 fprintf('Cost at theta found by fminunc: %f\n', cost);
@@ -116,7 +115,7 @@ xlabel('Exam 1 score')
 ylabel('Exam 2 score')
 
 % Specified in plot order
-legend('Admitted', 'Not admitted')
+legend('Admitted', 'Not admitted','Decision Boundary')
 hold off;
 
 fprintf('\nProgram paused. Press enter to continue.\n');
@@ -143,7 +142,7 @@ fprintf('Expected value: 0.775 +/- 0.002\n\n');
 
 % Compute accuracy on our training set
 p = predict(theta, X);
-
+fprintf('%f\n',p);
 fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
 fprintf('Expected accuracy (approx): 89.0\n');
 fprintf('\n');
