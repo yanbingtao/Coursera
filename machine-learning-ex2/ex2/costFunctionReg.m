@@ -16,8 +16,24 @@ grad = zeros(size(theta));
 %               You should set J to the cost.
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
+predictions_h =  sigmoid(X*theta);
 
+leftPart_sum = -y' * log(predictions_h);
 
+rightPart_sum = (1 - y') * log(1 - predictions_h);
+
+theta_temp = theta;
+
+theta_temp(1) = 0;
+
+lambaCostPart = (lambda / (2 * m)) * sum(theta_temp .^ 2);
+
+J = (1 / m) * (leftPart_sum - rightPart_sum) + lambaCostPart;
+%J = (1 / m) * (leftPart_sum - rightPart_sum); %without Lamba => overfitting
+lambdaGradientPart = lambda / m * theta_temp;
+
+grad = ((1/m) * (X' * (predictions_h - y))) + lambdaGradientPart;
+%grad = ((1/m) * (X' * (predictions_h - y)));%without Lamba => overfitting
 
 
 
