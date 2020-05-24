@@ -37,6 +37,27 @@ grad = zeros(size(theta));
 %
 
 
+predictions_h =  sigmoid(X*theta);
+
+leftPart_sum = -y' * log(predictions_h); % or sum( (-y .* log(predictions_h))
+
+rightPart_sum = (1 - y') * log(1 - predictions_h); 
+
+% following is for regularization, prevent overfitting
+
+thetaZero = theta;
+
+thetaZero(1) = 0;
+
+lambaCostPart = (lambda / (2 * m)) * sum(thetaZero .^ 2);
+
+lambdaGradPart = lambda / m * thetaZero;
+
+J = (1 / m) * (leftPart_sum - rightPart_sum) + lambaCostPart;
+
+grad = ((1/m) * (X' * (predictions_h - y))); % (unregularized)
+
+grad = grad + lambdaGradPart; % (regularized)
 
 
 

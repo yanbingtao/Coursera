@@ -30,7 +30,11 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+all_preds = all_theta * X';
 
+[max_vals, first_max_val_index] = max(all_preds);
+
+p = first_max_val_index';
 
 
 
